@@ -1,0 +1,9 @@
+services:
+  scfr.wphpbb.listener:
+    class: scfr\wphpbb\event\listener
+    arguments:
+      - '@template'
+      - '@user'
+      - '@dbal.conn'
+    tags:
+      - { name: event.listener }
