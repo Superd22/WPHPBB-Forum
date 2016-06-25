@@ -7,3 +7,15 @@ services:
       - '@dbal.conn'
     tags:
       - { name: event.listener }
+  scfr.wphpbb.api:
+    class: scfr\wphpbb\controller\api
+    arguments:
+      - '@user'
+      - '@dbal.conn'
+      - '@controller.helper'
+
+  scfr.wphpbb.permission:
+    class: scfr\wphpbb\controller\permission
+
+  scfr.wphpbb.permission:
+    class: scfr\wphpbb\controller\permission

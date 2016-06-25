@@ -34,7 +34,7 @@ class listener implements EventSubscriberInterface
       'core.session_create_after' => 'session_create_after',
       'core.session_kill_after'   => 'session_kill_after',
       'core.user_add_after'       => "user_register_after",
-
+      'core.permissions'          => 'permissions',
     );
   }
 
@@ -50,7 +50,21 @@ class listener implements EventSubscriberInterface
 
   }
 
-  
+  public function permissions($event) {
+    $temp = $event["permissions"];
+
+    $categories = array_merge($event['categories'], array(
+      'wphpbb'  => "ACL_WPHPBB",
+    ));
+    
+    $temp["f_wphpbb_cross_post"] = array('lang' => 'ACL_F_WPHPBB_CROSSPOST', 'cat' => 'wphpbb');
+
+    $event["permissions"] = $temp;
+    $event["categories"] = $categories;
+
+  }
+
+
 
 }
 ?>

@@ -1,0 +1,3 @@
+scfr_wphpbb_api_cross_postable_forums:
+    path: /SCFR/WPHPBB/CROSSFORUMS/
+    defaults: { _controller: scfr.wphpbb.api:get_cross_postable_forums }
