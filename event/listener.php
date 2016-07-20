@@ -39,11 +39,11 @@ class listener implements EventSubscriberInterface
   }
 
   public function session_create_after($event) {
-
+    if($event["session_data"]["session_user_id"] > 1) {
+    }
   }
 
   public function session_kill_after($event) {
-
   }
 
   public function user_register_after($event) {
@@ -56,7 +56,7 @@ class listener implements EventSubscriberInterface
     $categories = array_merge($event['categories'], array(
       'wphpbb'  => "ACL_WPHPBB",
     ));
-    
+
     $temp["f_wphpbb_cross_post"] = array('lang' => 'ACL_F_WPHPBB_CROSSPOST', 'cat' => 'wphpbb');
 
     $event["permissions"] = $temp;

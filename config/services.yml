@@ -1,4 +1,17 @@
 services:
+  scfr.wphpbb.api.helper:
+    class: scfr\wphpbb\api\helper
+    arguments:
+      - @template
+      - @user
+      - @config
+      - @controller.provider
+      - @ext.manager
+      - @symfony_request
+      - @request
+      - @filesystem
+      - %core.root_path%
+      - %core.php_ext%
   scfr.wphpbb.listener:
     class: scfr\wphpbb\event\listener
     arguments:
@@ -12,7 +25,8 @@ services:
     arguments:
       - '@user'
       - '@dbal.conn'
-      - '@controller.helper'
+      - '@scfr.wphpbb.api.helper'
+      - '@template'
 
   scfr.wphpbb.permission:
     class: scfr\wphpbb\controller\permission
