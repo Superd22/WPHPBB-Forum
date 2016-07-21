@@ -3,6 +3,7 @@ class User {
   private $id;
   private $wordpress;
   private $wp_user;
+  private $password;
   private $made_a_change;
 
   function __construct(\scfr\wphpbb\controller\Wordpress &$wordpress) {
@@ -40,6 +41,38 @@ class User {
         }
       }
     }
+  }
+
+  public function has_saved_password() {
+    return (isset($this->password) && $this->password != '');
+  }
+
+  public function remember_password($password) {
+    $this->password = $password;
+  }
+  
+  // To do :
+  // - add an event to handle $event["cp_data"]
+  public function add_wp_user($event) {
+      $this->wordpress->make_wordpress_env();
+      $data = $event["user_row"];
+
+      $new_user = wp_insert_user(array(
+        'user_login' => $data["username"],
+        'user_pass'  => $this->password,
+        'user_email' => $data["user_email"],
+        'role'       => 'author',
+        'rich_editing' => true,
+      ));
+
+
+      if($new_user > 0) {
+        \add_user_meta( $new_user , "_wphpbb_forum_user_id" , $event["user_id"] , true);
+        $this->id = $event["user_id"];
+        $this->do_wp_login();
+      }
+
+
   }
 
   private function handle_password_change($password) {

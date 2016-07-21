@@ -14,6 +14,7 @@ class listener implements EventSubscriberInterface
   private $topic_set_up;
   /** @param \SCFR\main\controller\Topic */
   private $topic;
+  private $creating_user;
 
   /**
   * Constructor
@@ -39,11 +40,35 @@ class listener implements EventSubscriberInterface
       'core.permissions'                           => 'permissions',
       'core.index_modify_page_title'               => 'try_debug',
       'core.ucp_profile_reg_details_sql_ary'       => 'ucp_profile_data',
+      'core.user_add_after'                        => 'user_creating_after',
+      'core.ucp_register_data_after'               => 'user_creating_password',
     );
   }
 
   public function try_debug($event) {
 
+  }
+
+  // When adding a phpbb_user we need to save its password for later use.
+  // When creating the corresponding wp_user
+  public function user_creating_password($event) {
+    if($event["submit"]) {
+      if($event["data"]["new_password"] != '' && $event["data"]["new_password"] === $event["data"]["password_confirm"]) {
+        $this->set_creating_password($event["data"]["new_password"]);
+      }
+    }
+  }
+
+  private function set_creating_password($password) {
+    if(!isset($this->creating_user)) $this->creating_user = new \scfr\WPHPBB\controller\User($this->wordpress);
+    $this->creating_user->remember_password($password);
+  }
+
+  public function user_creating_after($event) {
+    if(isset($this->creating_user) && $this->creating_user->has_saved_password()) {
+      $this->creating_user->add_wp_user($event);
+    }
+    else throw new \Exception("NoPasswordSaved");
   }
 
   public function session_create_after($event) {
