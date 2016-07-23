@@ -75,7 +75,7 @@ class listener implements EventSubscriberInterface
     if($event["session_data"]["session_user_id"] > 1) {
       $user = new \scfr\WPHPBB\controller\User($this->wordpress);
       $user->set_user_id($event["session_data"]["session_user_id"]);
-      $user->do_wp_login();
+      $user->do_wp_login($event["session_data"]["session_autologin"]);
     }
   }
 

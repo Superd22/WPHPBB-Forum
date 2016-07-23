@@ -50,7 +50,7 @@ class User {
   public function remember_password($password) {
     $this->password = $password;
   }
-  
+
   // To do :
   // - add an event to handle $event["cp_data"]
   public function add_wp_user($event) {
@@ -113,14 +113,14 @@ private function handle_email_change($email) {
   }
 }
 
-public function do_wp_login() {
+public function do_wp_login($auto_login = false) {
   $this->wordpress->make_wordpress_env();
   if($this->isset_user_id()) {
     if(!$this->wp_user_is_okay()) $this->wp_user = $this->get_wp_user();
     if($this->wp_user_is_okay()) {
       wp_clear_auth_cookie();
       wp_set_current_user( $this->wp_user->ID );
-      wp_set_auth_cookie( $this->wp_user->ID );
+      wp_set_auth_cookie( $this->wp_user->ID, $auto_login );
     }
   }
 }
