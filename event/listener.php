@@ -73,20 +73,20 @@ class listener implements EventSubscriberInterface
 
   public function session_create_after($event) {
     if($event["session_data"]["session_user_id"] > 1) {
-      $user = new \scfr\WPHPBB\controller\User($this->wordpress);
+      $user = new \scfr\wphpbb\controller\User($this->wordpress);
       $user->set_user_id($event["session_data"]["session_user_id"]);
       $user->do_wp_login($event["session_data"]["session_autologin"]);
     }
   }
 
   public function ucp_profile_data($event) {
-    $user = new \scfr\WPHPBB\controller\User($this->wordpress);
+    $user = new \scfr\wphpbb\controller\User($this->wordpress);
     $user->set_user_id($this->user->data["user_id"]);
     $user->handle_ucp_profile_data_change($event["data"]);
   }
 
   public function session_kill_after($event) {
-    $user = new \scfr\WPHPBB\controller\User($this->wordpress);
+    $user = new \scfr\wphpbb\controller\User($this->wordpress);
     $user->do_wp_logout();
   }
 
