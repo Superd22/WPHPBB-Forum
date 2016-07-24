@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\controller;
+<?php namespace scfr\WPHPBB\controller;
 class User {
   private $id;
   private $wordpress;
@@ -6,7 +6,7 @@ class User {
   private $password;
   private $made_a_change;
 
-  function __construct(\scfr\wphpbb\controller\Wordpress &$wordpress) {
+  function __construct(\scfr\WPHPBB\controller\Wordpress &$wordpress) {
     $this->wordpress = $wordpress;
   }
 

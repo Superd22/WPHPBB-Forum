@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\controller;
+<?php namespace scfr\WPHPBB\controller;
 class permission {
   public static function add_perms(&$permissions) {
     $temp = $permissions;

@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\controller;
+<?php namespace scfr\WPHPBB\controller;
 
 class CrossPatcher {
 

@@ -1,8 +1,8 @@
 services:
   scfr.wphpbb.crosspatcher:
-    class: scfr\wphpbb\controller\CrossPatcher
+    class: \scfr\WPHPBB\controller\CrossPatcher
   scfr.wphpbb.api.helper:
-    class: scfr\wphpbb\api\helper
+    class: \scfr\WPHPBB\api\helper
     arguments:
       - @template
       - @user
@@ -15,7 +15,7 @@ services:
       - %core.root_path%
       - %core.php_ext%
   scfr.wphpbb.listener:
-    class: scfr\wphpbb\event\listener
+    class: \scfr\WPHPBB\event\listener
     arguments:
       - '@template'
       - '@user'
@@ -24,7 +24,7 @@ services:
     tags:
       - { name: event.listener }
   scfr.wphpbb.api:
-    class: scfr\wphpbb\controller\api
+    class: \scfr\WPHPBB\controller\api
     arguments:
       - '@user'
       - '@dbal.conn'
@@ -32,11 +32,11 @@ services:
       - '@template'
 
   scfr.wphpbb.permission:
-    class: scfr\wphpbb\controller\permission
+    class: \scfr\WPHPBB\controller\permission
 
   scfr.wphpbb.permission:
-    class: scfr\wphpbb\controller\permission
+    class: \scfr\WPHPBB\controller\permission
   scfr.wphpbb.wordpress:
-    class: scfr\wphpbb\controller\Wordpress
+    class: \scfr\WPHPBB\controller\Wordpress
     arguments:
       - '@scfr.wphpbb.crosspatcher'

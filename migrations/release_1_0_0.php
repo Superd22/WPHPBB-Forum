@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\migrations;
+<?php namespace scfr\WPHPBB\migrations;
 
   class release_1_0_0 extends \phpbb\db\migration\migration {
     public function update_data() {

@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\controller;
+<?php namespace scfr\WPHPBB\controller;
 class API {
     public function __construct($user, $db, $helper, $template) {
       $this->user = $user;

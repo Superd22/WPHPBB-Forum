@@ -1,4 +1,4 @@
-<?php namespace scfr\wphpbb\api;
+<?php namespace scfr\WPHPBB\api;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
