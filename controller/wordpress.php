@@ -16,6 +16,8 @@ class Wordpress {
       $this->cross_patcher->make_wp_compatible();
       $code = $this->cross_patcher->exec();
 
+      file_put_contents("/home/scfr/log/test.txt", $code);
+
       eval($code);
     }
   }

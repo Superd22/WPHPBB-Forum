@@ -57,7 +57,7 @@ class User {
       $this->wordpress->make_wordpress_env();
       $data = $event["user_row"];
 
-      $new_user = wp_insert_user(array(
+      $new_user = \wp_insert_user(array(
         'user_login' => $data["username"],
         'user_pass'  => $this->password,
         'user_email' => $data["user_email"],
@@ -76,7 +76,7 @@ class User {
   }
 
   private function handle_password_change($password) {
-    if($this->wp_user_is_okay()) wp_set_password($password, $this->wp_user->ID);
+    if($this->wp_user_is_okay()) \wp_set_password($password, $this->wp_user->ID);
     $this->made_a_change = true;
   }
 
@@ -85,7 +85,7 @@ class User {
     if($this->wp_user_is_okay()) {
       global $wpdb;
 
-      $user_nicename = str_replace(" ", "-", sanitize_user($username));
+      $user_nicename = str_replace(" ", "-", \sanitize_user($username));
 
       $wpdb->update($wpdb->users, array(
         'user_login' => $username,
@@ -103,7 +103,7 @@ class User {
 
 private function handle_email_change($email) {
   if($this->wp_user_is_okay()) {
-    wp_update_user(array(
+    \wp_update_user(array(
         "ID"         => $this->wp_user->ID,
         "user_email" => $email,
       )
@@ -118,21 +118,21 @@ public function do_wp_login($auto_login = false) {
   if($this->isset_user_id()) {
     if(!$this->wp_user_is_okay()) $this->wp_user = $this->get_wp_user();
     if($this->wp_user_is_okay()) {
-      wp_clear_auth_cookie();
-      wp_set_current_user( $this->wp_user->ID );
-      wp_set_auth_cookie( $this->wp_user->ID, $auto_login );
+      \wp_clear_auth_cookie();
+      \wp_set_current_user( $this->wp_user->ID );
+      \wp_set_auth_cookie( $this->wp_user->ID, $auto_login );
     }
   }
 }
 
 public function wp_user_is_okay($wp_user = null) {
   if($wp_user === null) $wp_user = $this->wp_user;
-  return ( !is_wp_error($wp_user) && isset($wp_user->ID) && ($wp_user->ID > 0) );
+  return ( !\is_wp_error($wp_user) && isset($wp_user->ID) && ($wp_user->ID > 0) );
 }
 
 public function get_wp_user() {
   if($this->isset_user_id()) {
-    $user = get_users(array('meta_key' => '_wphpbb_forum_user_id', 'meta_value' => $this->id));
+    $user = \get_users(array('meta_key' => '_wphpbb_forum_user_id', 'meta_value' => $this->id));
     if(isset($user[0])) return $user[0];
     else return false;
   }
@@ -141,7 +141,7 @@ public function get_wp_user() {
 
 public function do_wp_logout() {
   $this->wordpress->make_wordpress_env();
-  wp_logout();
+  \wp_logout();
 }
 
 }

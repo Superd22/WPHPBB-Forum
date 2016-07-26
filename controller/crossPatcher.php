@@ -6,7 +6,7 @@ class CrossPatcher {
   protected $toExec;
 
   function __construct() {
-    $this->wp_root_path = "C:\Users\david\OneDrive\Documents\GitHub\SCFR\\";
+    $this->wp_root_path = "/home/scfr/web/";
     define('ABSPATH', $this->wp_root_path);
   }
 
@@ -45,7 +45,7 @@ class CrossPatcher {
       $this->unrequire_settings($wp_conf);
 
       $this->prepare($wp_conf);
-      $this->prepare($wp_settings);
+      $this->prepare(" " . $wp_settings);
     }
   }
 
@@ -66,6 +66,9 @@ class CrossPatcher {
       'require (ABSPATH . WPINC . ' . "'/formatting.php');",
       'require( ABSPATH . WPINC . ' . "'/formatting.php' );"
     );
+
+    $wp_formatting .= " if(!defined('WPINC')) define( 'WPINC', 'wp-includes' ); ";
+
 
     $wp_settings = str_replace($replace, $wp_formatting, $wp_settings);
   }
