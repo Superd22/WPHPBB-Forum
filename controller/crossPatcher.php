@@ -6,7 +6,7 @@ class CrossPatcher {
   protected $toExec;
 
   function __construct() {
-    $this->wp_root_path = "/home/scfr/web/";
+    $this->wp_root_path = \scfr\WPHPBB\settings::PHPBB_PATH;
     if(!defined('ABSPATH')) define('ABSPATH', $this->wp_root_path);
   }
 

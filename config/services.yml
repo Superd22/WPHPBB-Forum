@@ -1,4 +1,6 @@
 services:
+  scfr.wphpbb.settings:
+    class: scfr\WPHPBB\settings
   scfr.wphpbb.crosspatcher:
     class: scfr\WPHPBB\controller\CrossPatcher
   scfr.wphpbb.api.helper:
