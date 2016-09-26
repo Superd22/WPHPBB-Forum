@@ -7,7 +7,7 @@ class CrossPatcher {
 
   function __construct() {
     $this->wp_root_path = "/home/scfr/web/";
-    define('ABSPATH', $this->wp_root_path);
+    if(!defined('ABSPATH')) define('ABSPATH', $this->wp_root_path);
   }
 
   public function can_connect_to_wp() {
